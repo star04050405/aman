@@ -206,7 +206,7 @@ function view(v){
  if(v==='map'){
   if(!map){
    map=L.map('map',{zoomControl:false,attributionControl:false,worldCopyJump:true}).setView([20,60],2);
-   L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager_nolabels/{z}/{x}/{y}{r}.png',{maxZoom:18}).addTo(map);
+   L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:18}).addTo(map);
   }
   setTimeout(function(){map.invalidateSize()},80);
   markers();
