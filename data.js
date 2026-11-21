@@ -1,0 +1,58 @@
+// 安缦环球打卡数据 · 来源：aman.com/destinations（2026-11 实锤）+ 官方中文页
+// year 置信不足处标 null（诚实降级不硬编）
+var AMAN=[
+ // ── 亚洲 Asia · 发源地 ──
+ {en:'Amanpuri',cn:'安缦璞瑞',loc:'泰国 · 普吉岛',yr:1988,region:'asia',st:'',lat:8.05,lng:98.32,note:'一切的起点。1988 年西海岸的第一家「和平之地」，从此世上有了安缦。'},
+ {en:'Aman Nai Lert Bangkok',cn:'曼谷奈乐安缦',loc:'泰国 · 曼谷',yr:2023,region:'asia',st:'',lat:13.75,lng:100.55,note:'从奈乐公园的葱郁环抱中拔地而起，都市里的一座私人花园。'},
+ {en:'Amansara',cn:'安缦萨拉',loc:'柬埔寨 · 暹粒',yr:2002,region:'asia',st:'',lat:13.42,lng:103.86,note:'西哈努克亲王的旧邸，去吴哥窟的旅人最安静的落脚处。'},
+ {en:'Amantaka',cn:'安缦塔卡',loc:'老挝 · 琅勃拉邦',yr:2009,region:'asia',st:'',lat:19.89,lng:102.14,note:'琅勃拉邦古城里的法式旧院，僧侣清晨布施的橙色从门前经过。'},
+ {en:'Amangalla',cn:'安缦加拉',loc:'斯里兰卡 · 加勒',yr:2003,region:'asia',st:'',lat:6.02,lng:80.21,note:'荷兰殖民老堡内的百年饭店，印度洋就在城墙外。'},
+ {en:'Amanwella',cn:'安缦蔚澜',loc:'斯里兰卡 · 唐加勒',yr:2005,region:'asia',st:'',lat:5.95,lng:80.80,note:'椰林与海之间的一排安静平房。'},
+ {en:'Amandayan',cn:'大研安缦',loc:'中国 · 丽江',yr:2015,region:'asia',st:'',lat:26.87,lng:100.23,note:'狮子山之巅，俯瞰丽江古城的青瓦，纳西文化的窗口。'},
+ {en:'Amanfayun',cn:'法云安缦',loc:'中国 · 杭州',yr:2010,region:'asia',st:'',lat:30.24,lng:120.10,note:'法云古村的老宅与茶园，七座古寺相连的朝圣路径相伴。'},
+ {en:'Amanyangyun',cn:'养云安缦',loc:'中国 · 上海',yr:2018,region:'asia',st:'',lat:31.16,lng:120.02,note:'迁来的千年古樟与明清老宅，市郊香樟林中的宁静。'},
+ {en:'Aman Tokyo',cn:'安缦东京',loc:'日本 · 东京',yr:2014,region:'asia',st:'',lat:35.69,lng:139.77,note:'大手町塔顶层的「和」空，都市活力与深沉宁静在此相融。'},
+ {en:'Aman Kyoto',cn:'安缦京都',loc:'日本 · 京都',yr:2019,region:'asia',st:'',lat:35.07,lng:135.80,note:'藏在西山庭园深处的私邸，庭院里就是四季。'},
+ {en:'Amanemu',cn:'安缦伊沐',loc:'日本 · 伊势志摩',yr:2016,region:'asia',st:'',lat:34.51,lng:136.83,note:'伊势志摩国立公园内，温泉与珍珠之海。'},
+ {en:'Amanpulo',cn:'安缦璞乐',loc:'菲律宾 · 巴拉望',yr:2006,region:'asia',st:'',lat:11.21,lng:119.33,note:'私人岛 Pamalican，白沙、碧海与原始珊瑚礁。'},
+ {en:'Amanoi',cn:'安缦诺怡',loc:'越南 · 宁顺',yr:2013,region:'asia',st:'',lat:11.69,lng:109.19,note:'主山国家公园与永熙湾之间的一段壮观海岸。'},
+ {en:'Amanbagh',cn:'安缦百阁',loc:'印度 · 拉贾斯坦',yr:2005,region:'asia',st:'',lat:27.03,lng:76.61,note:'阿拉瓦利山脉中的花园绿洲，穹顶与回廊都是粉红砂石。'},
+ {en:'Aman-i-Khas',cn:'安缦伊卡',loc:'印度 · 伦滕波尔',yr:2003,region:'asia',st:'',lat:26.17,lng:76.45,note:'老虎国度边缘的野营帐，夜晚能听见森林。'},
+ {en:'Amanjiwo',cn:'安缦齐和',loc:'印度尼西亚 · 爪哇',yr:1997,region:'asia',st:'',lat:-7.66,lng:110.20,note:'正对婆罗浮屠的「宁静之魂」，晨雾里的千佛。'},
+ {en:'Amankila',cn:'安缦丘澜',loc:'印度尼西亚 · 巴厘东岸',yr:1992,region:'asia',st:'',lat:-8.44,lng:115.54,note:'山腰上的水上宫殿，龙脊泳池一路滑向林芝海。'},
+ {en:'Amandari',cn:'安缦黛宁',loc:'印度尼西亚 · 巴厘乌布',yr:1989,region:'asia',st:'',lat:-8.50,lng:115.26,note:'爱咏河谷之上，石墙村巷的巴厘心跳。'},
+ {en:'Amanwana',cn:'安缦湾澜',loc:'印度尼西亚 · 莫忧岛',yr:1993,region:'asia',st:'',lat:-8.35,lng:118.28,note:'原始荒野中的野奢帐篷营地，海浪拍岸就是背景音。'},
+ {en:'Aman Villas at Nusa Dua',cn:'努萨杜瓦安缦别墅',loc:'印度尼西亚 · 巴厘',yr:2013,region:'asia',st:'',lat:-8.77,lng:115.23,note:'努萨杜瓦的私邸别墅群，适合一群人的长假。'},
+ {en:'Amandira',cn:'安缦迪拉',loc:'印度尼西亚 · 科莫多',yr:2015,region:'asia',st:'',lat:-8.55,lng:119.50,note:'传统 Phinisi 帆船与私人岛，科莫多之海随船而行。'},
+ {en:'Amankora',cn:'安缦喀拉',loc:'不丹 · 帕罗/廷布/普纳卡等',yr:2007,region:'asia',st:'',lat:27.43,lng:89.68,note:'不丹五地连住——雷龙之国的山谷一处一处住过去。'},
+ // ── 美洲 & 加勒比 Americas ──
+ {en:'Amangiri',cn:'安缦奇岭',loc:'美国 · 犹他州峡谷角',yr:2009,region:'amer',st:'',lat:37.15,lng:-111.14,note:'混凝土长墙嵌进荒漠巨岩，四百万年地貌当后院。'},
+ {en:'Amangani',cn:'安缦甘尼',loc:'美国 · 杰克逊霍尔',yr:1998,region:'amer',st:'renov',lat:43.60,lng:-110.72,note:'大提顿山巅的红岩楼阁，官网标注整备中，重开在即。'},
+ {en:'Aman New York',cn:'安缦纽约',loc:'美国 · 纽约第五大道',yr:2022,region:'amer',st:'',lat:40.76,lng:-73.97,note:'皇冠大厦里的曼哈顿圣殿，第五大道与 57 街的转角。'},
+ {en:'Amanera',cn:'安缦茵澜',loc:'多米尼加 · 普拉塔港',yr:2015,region:'amer',st:'',lat:19.87,lng:-70.79,note:'山峦叠翠与加勒比海之间，一座悬崖上的无边泳池。'},
+ {en:'Amanyara',cn:'安缦涯澜',loc:'特克斯和凯科斯 · 普罗维登西亚莱斯',yr:2006,region:'amer',st:'',lat:21.94,lng:-72.29,note:'800 米私属海滩被海洋保护区环抱，安静得只剩潮声。'},
+ {en:'Amanvari',cn:'安缦瓦瑞',loc:'墨西哥 · 巴哈东角',yr:2024,region:'amer',st:'',lat:23.35,lng:-109.44,note:'沙漠、山脉与海洋在东角交汇处，安缦最新的一章。'},
+ // ── 欧洲 · 中东 · 非洲 EMEA ──
+ {en:'Amanjena',cn:'安缦珍纳',loc:'摩洛哥 · 马拉喀什',yr:1998,region:'emea',st:'',lat:31.61,lng:-8.00,note:'「红色之城」近郊的玫瑰色宫殿，泉水声里的北非庭院。'},
+ {en:'Aman Le Mélézin',cn:'安缦嵄林栈',loc:'法国 · 高雪维尔 1850',yr:1992,region:'emea',st:'',lat:45.42,lng:6.58,note:'三山谷雪道尽头的法式城堡，滑进滑出的雪季。'},
+ {en:'Amanruya',cn:'安缦如雅',loc:'土耳其 · 博德鲁姆',yr:2011,region:'emea',st:'',lat:37.06,lng:27.28,note:'橄榄与柏树林间的爱琴海半岛，白色庭阁配私池。'},
+ {en:'Amanzoe',cn:'安缦卓熠',loc:'希腊 · 波多河丽',yr:2012,region:'emea',st:'',lat:37.38,lng:23.14,note:'伯罗奔尼撒东海岸的现代「雅典卫城」，橄榄林与爱琴海。'},
+ {en:'Aman Venice',cn:'安缦威尼斯',loc:'意大利 · 威尼斯',yr:2013,region:'emea',st:'',lat:45.43,lng:12.33,note:'大运河畔的帕帕多波利宫，威尼斯八大宫殿之一。'},
+ {en:'Aman Rosa Alpina',cn:'安缦阿尔卑斯罗莎',loc:'意大利 · 多洛米蒂',yr:2019,region:'emea',st:'',lat:46.55,lng:11.90,note:'圣卡夏诺百年酒店的阿尔卑斯式优雅，翻新后焕新登场。'},
+ {en:'Aman Sveti Stefan',cn:'安缦圣斯特凡',loc:'黑山 · 圣斯特凡岛',yr:2008,region:'emea',st:'',lat:42.21,lng:18.90,note:'15 世纪渔村改建的潮汐岛，一堤连海，对望 Villa Miločer。'},
+ {en:'Aman Spa at The Connaught',cn:'康诺特安缦水疗',loc:'英国 · 伦敦梅菲尔',yr:2013,region:'emea',st:'spa',lat:51.51,lng:-0.15,note:'梅菲尔百年酒店深处的安缦水疗——没有 London 安缦酒店，有她的手艺。'},
+];
+// 筹备中（不参与打卡，做「未来篇」）
+var FUTURE=[
+ {en:'Aman Dubai',loc:'阿联酋 · 迪拜',cn:'安缦迪拜'},
+ {en:'Amansamar',loc:'沙特 · 瓦迪萨法尔',cn:'安缦萨马尔'},
+ {en:'Amancaya',loc:'巴哈马 · 埃克苏马',cn:'安缦雅湾'},
+ {en:'Amansanu',loc:'美国 · 得州丘陵地',cn:'安缦山努'},
+ {en:'Aman Miami Beach',loc:'美国 · 迈阿密海滩（2028）',cn:'安缦迈阿密'},
+ {en:'Aman Beverly Hills',loc:'美国 · 比弗利山（2028）',cn:'安缦比弗利'},
+ {en:'Aman Niseko',loc:'日本 · 北海道二世谷（2030）',cn:'安缦二世古'},
+ {en:'Amanolu',loc:'马尔代夫',cn:'安缦奥露'},
+ {en:'Aman Singapore',loc:'新加坡',cn:'安缦新加坡'},
+ {en:'Aman Seoul',loc:'韩国 · 首尔',cn:'安缦首尔'},
+ {en:'Aman Karingani',loc:'莫桑比克',cn:'安缦卡林加尼'},
+];

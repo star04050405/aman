@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>aman. 环球安缦打卡</title>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="apple-touch-icon-180.png">
+<link rel="manifest" href="manifest.json">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{font-family:Georgia,"Songti SC","Noto Serif SC",serif;background:#F6F3EC;color:#2E2A24;line-height:1.9;-webkit-font-smoothing:antialiased}
+.wrap{max-width:680px;margin:0 auto;padding:0 22px 70px}
+/* 封面 */
+.hero{text-align:center;padding:70px 0 34px;border-bottom:1px solid #DDD5C4}
+.om{font-size:2.6rem;color:#B5A27A;line-height:1}
+.kick{font-size:.6rem;letter-spacing:.44em;color:#8A7B5C;font-family:Courier New,monospace;margin-top:14px}
+h1{font-size:2.5rem;font-weight:400;margin:8px 0 2px;letter-spacing:.1em}
+.sub{font-size:.82rem;color:#6E675A}
+.meta{font-size:.66rem;color:#9A9280;margin-top:10px}
+.meta b{color:#8A6A2C}
+/* 计数带 */
+.band{display:flex;justify-content:center;gap:26px;padding:18px 0 6px}
+.bdit{text-align:center}
+.bdit .v{font-size:1.5rem;color:#2E2A24}
+.bdit .v.g{color:#B5A27A}
+.bdit .k{font-size:.6rem;color:#9A9280;letter-spacing:.2em;font-family:Courier New,monospace}
+/* 视图切换 */
+.vt{display:flex;gap:8px;justify-content:center;padding:14px 0 0}
+.vtb{border:1px solid #C9BFA6;background:transparent;color:#6E675A;border-radius:99px;font-size:.78rem;padding:8px 22px;font-family:inherit;cursor:pointer;letter-spacing:.14em}
+.vtb.on{background:#2E2A24;color:#F6F3EC;border-color:#2E2A24}
+/* 地图 */
+#map{display:none;height:420px;border-radius:8px;margin-top:18px;border:1px solid #DDD5C4;z-index:1}
+#map.on{display:block}
+/* 区 */
+.sect{padding:30px 0 0}
+.sh2{display:flex;align-items:baseline;gap:10px;margin-bottom:4px}
+.sh2 .rn{font-size:.62rem;color:#8A6A2C;font-family:Courier New,monospace;letter-spacing:.3em}
+.sh2 h2{font-size:1.2rem;font-weight:400}
+.sh2 .rc{font-size:.66rem;color:#9A9280;font-family:Courier New,monospace}
+/* 卡 */
+.cards{display:grid;gap:9px;margin-top:12px}
+.cd{background:#FBF9F2;border:1px solid #DDD5C4;border-radius:5px;padding:13px 16px;transition:border-color .2s}
+.cd.stayed{border-color:#B5A27A;background:#F9F5E8}
+.cd.dreamed{border-color:#D8CBB4}
+.cd .row1{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+.cd .en{font-size:1rem;letter-spacing:.03em}
+.cd .cn{font-size:.78rem;color:#8A6A2C}
+.cd .flags{margin-left:auto;display:flex;gap:5px;align-items:center}
+.cd .pill{font-size:.56rem;padding:2px 8px;border-radius:99px;font-family:Courier New,monospace;letter-spacing:.1em}
+.cd .pill.stay{background:#B5A27A;color:#fff}
+.cd .pill.dream{background:#fff;color:#8A6A2C;border:1px solid #C9BFA6}
+.cd .pill.renov{background:#E8E2D4;color:#8A7B5C}
+.cd .pill.spa{background:#E8E2D4;color:#8A7B5C}
+.cd .loc{font-size:.72rem;color:#9A9280;margin-top:2px}
+.cd .loc .yr{font-family:Courier New,monospace;color:#8A6A2C}
+.cd .note{display:none;font-size:.78rem;color:#5B5343;margin-top:8px;padding-top:8px;border-top:1px dashed #DDD5C4;line-height:1.9}
+.cd.open .note{display:block}
+.cd .acts{display:none;gap:8px;margin-top:10px}
+.cd.open .acts{display:flex}
+.ab{flex:1;border:1px solid #C9BFA6;background:#fff;border-radius:4px;padding:9px 0;font-size:.78rem;font-family:inherit;color:#6E675A;cursor:pointer;letter-spacing:.08em}
+.ab.on{background:#B5A27A;border-color:#B5A27A;color:#fff}
+.ab.dr.on{background:#fff;color:#8A6A2C;border-color:#B5A27A}
+/* 未来篇 */
+.fut{margin-top:34px;border-top:1px solid #DDD5C4;padding-top:24px}
+.fut h3{font-size:.9rem;font-weight:400;color:#8A7B5C;display:flex;justify-content:space-between;align-items:center;cursor:pointer}
+.fut h3 span{font-size:.66rem;color:#9A9280;font-family:Courier New,monospace}
+.futlist{display:none;grid;gap:6px;margin-top:10px}
+.futlist.on{display:grid;gap:6px}
+.fr{font-size:.78rem;color:#6E675A;padding:7px 0;border-bottom:1px dashed #E4DECE;display:flex;gap:10px}
+.fr .en{color:#2E2A24}
+.fr .loc{margin-left:auto;color:#9A9280;font-size:.68rem}
+/* 徽章 */
+.badges{margin-top:38px;text-align:center;border-top:1px solid #DDD5C4;padding-top:26px}
+.badges h3{font-size:.9rem;font-weight:400;color:#8A7B5C;letter-spacing:.2em}
+.brow{display:flex;gap:12px;justify-content:center;margin-top:16px;flex-wrap:wrap}
+.bdg{width:86px;height:86px;border-radius:50%;border:1.5px solid #DDD5C4;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;color:#C9C0AC;font-size:.6rem;font-family:Courier New,monospace;letter-spacing:.12em}
+.bdg .bi{font-size:1.3rem}
+.bdg.lit{border-color:#B5A27A;color:#8A6A2C;background:#F9F5E8;box-shadow:0 4px 14px rgba(181,162,122,.25)}
+.foot{text-align:center;padding:36px 0 0;border-top:1px solid #DDD5C4;margin-top:44px}
+.foot p{font-size:.62rem;color:#9A9280;letter-spacing:.12em;line-height:2.3}
+#toast{position:fixed;left:50%;bottom:80px;transform:translateX(-50%) translateY(16px);background:#2E2A24;color:#F6F3EC;font-size:.78rem;padding:9px 20px;border-radius:99px;opacity:0;transition:.3s;pointer-events:none;z-index:99}
+#toast.on{opacity:1;transform:translateX(-50%)}
+.leaflet-container{background:#EFEAE0;font-family:inherit}
+</style>
+</head>
+<body>
+<div class="wrap">
+ <header class="hero">
+  <div class="om">ॐ</div>
+  <div class="kick">AMAN · SANSKRIT FOR PEACE</div>
+  <h1>环球安缦</h1>
+  <div class="sub">从普吉岛的第一家开始，把「和平之地」一处一处点亮</div>
+  <div class="meta">官网 destinations 在列 <b>37 处</b> · <b>21 国</b> · 另有 11 处筹备中</div>
+  <div class="band">
+   <div class="bdit"><div class="v" id="cStay">0</div><div class="k">已住过</div></div>
+   <div class="bdit"><div class="v g" id="cDream">0</div><div class="k">在梦里</div></div>
+   <div class="bdit"><div class="v" id="cAll">37</div><div class="k">总数</div></div>
+  </div>
+  <div class="vt">
+   <button class="vtb on" id="vlb" onclick="view('list')">名 册</button>
+   <button class="vtb" id="vmb" onclick="view('map')">地 图</button>
+  </div>
+  <div id="map"></div>
+ </header>
+
+ <div id="listview">
+  <div id="regions"></div>
+
+  <div class="fut">
+   <h3 onclick="toggleFut()">未来篇 · Coming Soon <span id="futn"></span> ▾</h3>
+   <div class="futlist" id="futlist"></div>
+  </div>
+
+  <div class="badges">
+   <h3>章 · SEALS</h3>
+   <div class="brow" id="brow"></div>
+  </div>
+
+  <div class="foot">
+   <p>AMAN WAS BORN IN PHUKET, 1988 · 名单与年份据 aman.com destinations（2026-11）<br>年份置信不足者不标注 · 住过的是人生，梦着的是念想<br><span style="font-size:.9rem;color:#B5A27A">ॐ</span></p>
+  </div>
+ </div>
+</div>
+<div id="toast"></div>
+<script src="data.js"></script>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+var KEY='aman_stay';
+var S={stay:{},dream:{}};
+try{S=JSON.parse(localStorage.getItem(KEY)||'null')||{stay:{},dream:{}}}catch(e){}
+function $(i){return document.getElementById(i)}
+function save(){localStorage.setItem(KEY,JSON.stringify(S))}
+var REGN=[['asia','亚洲 · ASIA · 发源地'],['amer','美洲 & 加勒比 · AMERICAS'],['emea','欧洲 · 中东 · 非洲 · EMEA']];
+$('regions').innerHTML=REGN.map(function(r){
+ var list=AMAN.filter(function(x){return x.region===r[0]});
+ return '<div class="sect"><div class="sh2"><span class="rn">'+r[1].split(' · ')[1]+'</span><h2>'+r[1].split(' · ')[0]+'</h2><span class="rc">'+list.length+' 处</span></div>'
+  +'<div class="cards">'+list.map(card).join('')+'</div></div>';
+}).join('');
+function card(x,i){
+ var idx=AMAN.indexOf(x);
+ var fl='';
+ if(x.st==='renov')fl+='<span class="pill renov">整备中</span>';
+ if(x.st==='spa')fl+='<span class="pill spa">水疗</span>';
+ if(S.stay[idx])fl+='<span class="pill stay">✓ 住过</span>';
+ else if(S.dream[idx])fl+='<span class="pill dream">♡ 梦想</span>';
+ return '<div class="cd'+(S.stay[idx]?' stayed':(S.dream[idx]?' dreamed':''))+'" id="cd'+idx+'" onclick="toggle('+idx+')">'
+  +'<div class="row1"><span class="en">'+x.en+'</span><span class="cn">'+x.cn+'</span><span class="flags">'+fl+'</span></div>'
+  +'<div class="loc">'+x.loc+(x.yr?' <span class="yr">· EST. '+x.yr+'</span>':'')+'</div>'
+  +'<div class="note">'+x.note+'</div>'
+  +'<div class="acts"><button class="ab'+(S.stay[idx]?' on':'')+'" onclick="mark(event,'+idx+',\'stay\')">✓ 住过</button>'
+  +'<button class="ab dr'+(S.dream[idx]?' on':'')+'" onclick="mark(event,'+idx+',\'dream\')">♡ 想去</button></div>'
+  +'</div>';
+}
+function rerender(){
+ $('regions').innerHTML=REGN.map(function(r){
+  var list=AMAN.filter(function(x){return x.region===r[0]});
+  return '<div class="sect"><div class="sh2"><span class="rn">'+r[1].split(' · ')[1]+'</span><h2>'+r[1].split(' · ')[0]+'</h2><span class="rc">'+list.length+' 处</span></div>'
+   +'<div class="cards">'+list.map(card).join('')+'</div></div>';
+ }).join('');
+ counts();badges();markers();
+}
+function toggle(i){$('cd'+i).classList.toggle('open')}
+function mark(e,i,which){
+ e.stopPropagation();
+ if(which==='stay'){
+  if(S.stay[i]){delete S.stay[i]}else{S.stay[i]=1;delete S.dream[i]}
+ }else{
+  if(S.dream[i]){delete S.dream[i]}else{S.dream[i]=1;delete S.stay[i]}
+ }
+ save();rerender();
+ var x=AMAN[i];
+ toast(which==='stay'?(S.stay[i]?'✓ '+x.cn+' · 住过':'已取消'):(S.dream[i]?'♡ '+x.cn+' · 入梦':'已取消'));
+}
+function counts(){
+ var a=Object.keys(S.stay).length,b=Object.keys(S.dream).length;
+ $('cStay').textContent=a;$('cDream').textContent=b;$('cAll').textContent=AMAN.length;
+}
+/* 未来篇 */
+$('futn').textContent=FUTURE.length+' 处';
+$('futlist').innerHTML=FUTURE.map(function(x){return '<div class="fr"><span class="en">'+x.en+' · '+x.cn+'</span><span class="loc">'+x.loc+'</span></div>'}).join('');
+function toggleFut(){$('futlist').classList.toggle('on')}
+/* 徽章 */
+function badges(){
+ var r={asia:0,amer:0,emea:0};
+ AMAN.forEach(function(x,i){if(S.stay[i])r[x.region]++});
+ var tot=r.asia+r.amer+r.emea;
+ var defs=[
+  ['?',r.asia>=AMAN.filter(function(x){return x.region==='asia'}).length,'亚洲全住'],
+  ['?',r.amer>=AMAN.filter(function(x){return x.region==='amer'}).length,'美洲全住'],
+  ['?',r.emea>=AMAN.filter(function(x){return x.region==='emea'}).length,'欧非全住'],
+  ['ॐ',tot>=AMAN.length,'和平行者'],
+ ];
+ $('brow').innerHTML=defs.map(function(d,i){
+  return '<div class="bdg'+(d[1]?' lit':'')+'"><span class="bi">'+d[0]+'</span><span>'+d[2]+'</span></div>';
+ }).join('');
+}
+/* 地图 */
+var map=null,mkrs=[];
+function view(v){
+ $('vlb').classList.toggle('on',v==='list');
+ $('vmb').classList.toggle('on',v==='map');
+ $('map').classList.toggle('on',v==='map');
+ if(v==='map'){
+  if(!map){
+   map=L.map('map',{zoomControl:false,attributionControl:false,worldCopyJump:true}).setView([20,60],2);
+   L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager_nolabels/{z}/{x}/{y}{r}.png',{maxZoom:18}).addTo(map);
+  }
+  setTimeout(function(){map.invalidateSize()},80);
+  markers();
+ }
+}
+function markers(){
+ if(!map)return;
+ mkrs.forEach(function(m){map.removeLayer(m)});mkrs=[];
+ AMAN.forEach(function(x,i){
+  var c=S.stay[i]?'#B5A27A':(S.dream[i]?'#8A6A2C':'#A8A08D');
+  var m=L.circleMarker([x.lat,x.lng],{radius:S.stay[i]?7:5,color:c,weight:1.5,fillColor:S.stay[i]?'#B5A27A':(S.dream[i]?'#D8CBB4':'#CFC7B4'),fillOpacity:.9}).addTo(map);
+  m.bindTooltip(x.cn+' · '+x.loc,{direction:'top',offset:[0,-4]});
+  m.on('click',function(){openCard(i)});
+  mkrs.push(m);
+ });
+}
+function openCard(i){
+ view('list');
+ var el=$('cd'+i);
+ document.querySelectorAll('.cd.open').forEach(function(c){c.classList.remove('open')});
+ el.classList.add('open');
+ setTimeout(function(){el.scrollIntoView({behavior:'smooth',block:'center'})},60);
+}
+function toast(m){var t=$('toast');t.textContent=m;t.classList.add('on');setTimeout(function(){t.classList.remove('on')},1500)}
+counts();badges();
+</script>
+</body>
+</html>
